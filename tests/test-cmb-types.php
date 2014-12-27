@@ -141,7 +141,7 @@ class CMB2_Types_Test extends CMB2_Test {
 					<div class="cmb-tbody cmb-field-list">
 						<div class="cmb-row cmb-repeat-row">
 							<div class="cmb-td">
-								<input type="text" class="regular-text" name="field_test_field[0]" id="field_test_field_0" data-iterator="0" value=""/>
+								<input type="text" class="regular-text" name="field_test_field[0]" id="field_test_field_0" data-iterator="0" value="" data-type=\'text\'/>
 							</div>
 							<div class="cmb-td cmb-remove-row">
 								<button class="button cmb-remove-row-button button-disabled">'. __( 'Remove', 'cmb2' ) .'</button>
@@ -149,7 +149,7 @@ class CMB2_Types_Test extends CMB2_Test {
 						</div>
 						<div class="cmb-row empty-row hidden">
 							<div class="cmb-td">
-								<input type="text" class="regular-text" name="field_test_field[1]" id="field_test_field_1" data-iterator="1" value=""/>
+								<input type="text" class="regular-text" name="field_test_field[1]" id="field_test_field_1" data-iterator="1" value="" data-type=\'text\'/>
 							</div>
 							<div class="cmb-td cmb-remove-row">
 								<button class="button cmb-remove-row-button">'. __( 'Remove', 'cmb2' ) .'</button>
@@ -176,7 +176,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		<div class="cmb-row cmb-type-select cmb2-id-options-cb-test-field">
 			<div class="cmb-th"><label for="options_cb_test_field">Name</label></div>
 			<div class="cmb-td">
-				<select class="cmb2_select" name="options_cb_test_field" id="options_cb_test_field">
+				<select class="cmb2_select" name="options_cb_test_field" id="options_cb_test_field"  data-type=\'select\'>
 					<option value="one" >One</option>
 					<option value="two" >Two</option>
 					<option value="true" >1</option>
@@ -202,7 +202,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		<div class="cmb-row cmb-type-select cmb2-id-options-test-field">
 			<div class="cmb-th"><label for="options_test_field">Name</label></div>
 			<div class="cmb-td">
-				<select class="cmb2_select" name="options_test_field" id="options_test_field">
+				<select class="cmb2_select" name="options_test_field" id="options_test_field" data-type=\'select\'>
 					<option value="one" >One</option>
 					<option value="two" >Two</option>
 					<option value="true" >1</option>
@@ -226,7 +226,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		<div class="cmb-row cmb-type-text cmb2-id-attributes-test-field table-layout">
 			<div class="cmb-th"><label for="attributes_test_field">Name</label></div>
 			<div class="cmb-td">
-				<input type="number" class="regular-text" name="attributes_test_field" id="arbitrary-id" value="" disabled="disabled" data-test=\'{"one":"One","two":"Two","true":true,"false":false,"array":{"nested_data":true}}\'/>
+				<input type="number" class="regular-text" name="attributes_test_field" id="arbitrary-id" value=""  data-type=\'text\' disabled="disabled" data-test=\'{"one":"One","two":"Two","true":true,"false":false,"array":{"nested_data":true}}\'/>
 				<p class="cmb2-metabox-description">This is a description</p>
 			</div>
 		</div>
@@ -267,7 +267,7 @@ class CMB2_Types_Test extends CMB2_Test {
 
 	public function test_text_field() {
 		$this->assertHTMLstringsAreEqual(
-			'<input type="text" class="regular-text" name="field_test_field" id="field_test_field" value=""/><p class="cmb2-metabox-description">This is a description</p>',
+			'<input type="text" class="regular-text" name="field_test_field" id="field_test_field" value="" data-type=\'text\'/><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object(), 'render' ) )
 		);
 	}
@@ -277,7 +277,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		update_post_meta( $this->post_id, $this->text_type_field['id'], 'test value' );
 
 		$this->assertHTMLstringsAreEqual(
-			'<input type="text" class="regular-text" name="field_test_field" id="field_test_field" value="test value"/><p class="cmb2-metabox-description">This is a description</p>',
+			'<input type="text" class="regular-text" name="field_test_field" id="field_test_field" value="test value" data-type=\'text\'/><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object(), 'render' ) )
 		);
 
@@ -286,7 +286,7 @@ class CMB2_Types_Test extends CMB2_Test {
 
 	public function test_hidden_field() {
 		$this->assertHTMLstringsAreEqual(
-			'<input type="hidden" class="" name="field_test_field" id="field_test_field" value=""/>',
+			'<input type="hidden" class="" name="field_test_field" id="field_test_field" value=""  data-type=\'hidden\'/>',
 			$this->capture_render( array( $this->get_field_type_object( 'hidden' ), 'render' ) )
 		);
 	}
@@ -294,7 +294,7 @@ class CMB2_Types_Test extends CMB2_Test {
 	public function test_text_medium_field() {
 
 		$this->assertHTMLstringsAreEqual(
-			'<input type="text" class="cmb2-text-medium" name="field_test_field" id="field_test_field" value=""/><span class="cmb2-metabox-description">This is a description</span>',
+			'<input type="text" class="cmb2-text-medium" name="field_test_field" id="field_test_field" value="" data-type=\'text_medium\'/><span class="cmb2-metabox-description">This is a description</span>',
 			$this->capture_render( array( $this->get_field_type_object( 'text_medium' ), 'render' ) )
 		);
 	}
@@ -302,7 +302,7 @@ class CMB2_Types_Test extends CMB2_Test {
 	public function test_text_email_field() {
 
 		$this->assertHTMLstringsAreEqual(
-			'<input type="email" class="cmb2-text-email cmb2-text-medium" name="field_test_field" id="field_test_field" value=""/><p class="cmb2-metabox-description">This is a description</p>',
+			'<input type="email" class="cmb2-text-email cmb2-text-medium" name="field_test_field" id="field_test_field" value="" data-type=\'text_email\'/><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( 'text_email' ), 'render' ) )
 		);
 	}
@@ -310,7 +310,7 @@ class CMB2_Types_Test extends CMB2_Test {
 	public function test_text_url_field() {
 
 		$this->assertHTMLstringsAreEqual(
-			'<input type="text" class="cmb2-text-url cmb2-text-medium regular-text" name="field_test_field" id="field_test_field" value=""/><p class="cmb2-metabox-description">This is a description</p>',
+			'<input type="text" class="cmb2-text-url cmb2-text-medium regular-text" name="field_test_field" id="field_test_field" value="" data-type=\'text_url\'/><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( 'text_url' ), 'render' ) )
 		);
 	}
@@ -320,7 +320,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		update_post_meta( $this->post_id, $this->text_type_field['id'], 'test value' );
 
 		$this->assertHTMLstringsAreEqual(
-			'<input type="text" class="cmb2-text-url cmb2-text-medium regular-text" name="field_test_field" id="field_test_field" value="http://testvalue"/><p class="cmb2-metabox-description">This is a description</p>',
+			'<input type="text" class="cmb2-text-url cmb2-text-medium regular-text" name="field_test_field" id="field_test_field" value="http://testvalue" data-type=\'text_url\'/><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( 'text_url' ), 'render' ) )
 		);
 
@@ -340,7 +340,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		$value = $field->format_timestamp( strtotime( 'today' ) );
 
 		$this->assertHTMLstringsAreEqual(
-			sprintf( '<input type="text" class="cmb2-text-small cmb2-datepicker" name="field_test_field" id="field_test_field" value="%s"/><span class="cmb2-metabox-description">This is a description</span>', $value ),
+			sprintf( '<input type="text" class="cmb2-text-small cmb2-datepicker" name="field_test_field" id="field_test_field" value="%s" data-type=\'text_date\'/><span class="cmb2-metabox-description">This is a description</span>', $value ),
 			$this->capture_render( array( $type, 'render' ) )
 		);
 
@@ -361,7 +361,7 @@ class CMB2_Types_Test extends CMB2_Test {
 
 
 		$this->assertHTMLstringsAreEqual(
-			sprintf( '<input type="text" class="cmb2-timepicker text-time" name="field_test_field" id="field_test_field" value="%s"/><span class="cmb2-metabox-description">This is a description</span>', $value ),
+			sprintf( '<input type="text" class="cmb2-timepicker text-time" name="field_test_field" id="field_test_field" value="%s" data-type=\'text_time\'/><span class="cmb2-metabox-description">This is a description</span>', $value ),
 			$this->capture_render( array( $type, 'render' ) )
 		);
 
@@ -370,7 +370,7 @@ class CMB2_Types_Test extends CMB2_Test {
 
 	public function test_text_money_field() {
 
-		$expected_field = '$ <input type="text" class="cmb2-text-money" name="field_test_field" id="field_test_field" value=""/><span class="cmb2-metabox-description">This is a description</span>';
+		$expected_field = '$ <input type="text" class="cmb2-text-money" name="field_test_field" id="field_test_field" value="" data-type=\'text_money\'/><span class="cmb2-metabox-description">This is a description</span>';
 
 		$this->assertHTMLstringsAreEqual(
 			$expected_field,
@@ -396,14 +396,14 @@ class CMB2_Types_Test extends CMB2_Test {
 
 	public function test_textarea_small_field() {
 		$this->assertHTMLstringsAreEqual(
-			'<textarea class="cmb2-textarea-small" name="field_test_field" id="field_test_field" cols="60" rows="4"></textarea><p class="cmb2-metabox-description">This is a description</p>',
+			'<textarea class="cmb2-textarea-small" name="field_test_field" id="field_test_field" cols="60" rows="4" data-type=\'textarea_small\'></textarea><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( 'textarea_small' ), 'render' ) )
 		);
 	}
 
 	public function test_textarea_code_field() {
 		$this->assertHTMLstringsAreEqual(
-			'<pre><textarea class="cmb2-textarea-code" name="field_test_field" id="field_test_field" cols="60" rows="10"></textarea></pre><p class="cmb2-metabox-description">This is a description</p>',
+			'<pre><textarea class="cmb2-textarea-code" name="field_test_field" id="field_test_field" cols="60" rows="10" data-type=\'textarea_code\'></textarea></pre><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( 'textarea_code' ), 'render' ) )
 		);
 	}
@@ -423,7 +423,7 @@ class CMB2_Types_Test extends CMB2_Test {
 				<link rel=\'stylesheet\' id=\'dashicons-css\' href=\'' . includes_url( "css/dashicons$suffix.css?$version" ) . '\' type=\'text/css\' media=\'all\' />
 				<link rel=\'stylesheet\' id=\'editor-buttons-css\' href=\'' . includes_url( "css/editor$suffix.css?$version" ) . '\' type=\'text/css\' media=\'all\' />
 				<div id="wp-field_test_field-editor-container" class="wp-editor-container">
-					<textarea class="wp-editor-area" rows="20" cols="40" name="field_test_field" id="field_test_field">
+					<textarea class="wp-editor-area" rows="20" cols="40" name="field_test_field" data-type="wysiwyg" id="field_test_field">
 					</textarea>
 				</div>
 			</div>
@@ -448,7 +448,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		$formatted_val_to_update = $field->format_timestamp( $val_to_update );
 
 		$this->assertHTMLstringsAreEqual(
-			sprintf( '<input type="text" class="cmb2-text-small cmb2-datepicker" name="field_test_field" id="field_test_field" value="%s"/><p class="cmb2-metabox-description">This is a description</p>', $formatted_val_to_update ),
+			sprintf( '<input type="text" class="cmb2-text-small cmb2-datepicker" name="field_test_field" id="field_test_field" value="%s" data-type=\'text_date_timestamp\'/><p class="cmb2-metabox-description">This is a description</p>', $formatted_val_to_update ),
 			$this->capture_render( array( $this->get_field_type_object( $field ), 'render' ) )
 		);
 
@@ -470,7 +470,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		$time_val = $field->format_timestamp( $today_stamp, 'time_format' );
 
 		$this->assertHTMLstringsAreEqual(
-			sprintf( '<input type="text" class="cmb2-text-small cmb2-datepicker" name="field_test_field[date]" id="field_test_field_date" value="%s"/><input type="text" class="cmb2-timepicker text-time" name="field_test_field[time]" id="field_test_field_time" value="%s"/><span class="cmb2-metabox-description">This is a description</span>', $date_val, $time_val ),
+			sprintf( '<input type="text" class="cmb2-text-small cmb2-datepicker" name="field_test_field[date]" id="field_test_field_date" value="%s" data-type=\'text_datetime_timestamp\'/><input type="text" class="cmb2-timepicker text-time" name="field_test_field[time]" id="field_test_field_time" value="%s" data-type=\'text_datetime_timestamp\'/><span class="cmb2-metabox-description">This is a description</span>', $date_val, $time_val ),
 			$this->capture_render( array( $this->get_field_type_object( $field ), 'render' ) )
 		);
 
@@ -502,7 +502,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		$zones = wp_timezone_choice( $tzstring );
 
 		$this->assertHTMLstringsAreEqual(
-			sprintf( '<input type="text" class="cmb2-text-small cmb2-datepicker" name="field_test_field[date]" id="field_test_field_date" value="%s"/><input type="text" class="cmb2-timepicker text-time" name="field_test_field[time]" id="field_test_field_time" value="%s"/><select name="field_test_field[timezone]" id="field_test_field_timezone">%s</select><span class="cmb2-metabox-description">This is a description</span>', $date_val, $time_val, $zones ),
+			sprintf( '<input type="text" class="cmb2-text-small cmb2-datepicker" name="field_test_field[date]" id="field_test_field_date" value="%s" data-type=\'text_datetime_timestamp_timezone\'/><input type="text" class="cmb2-timepicker text-time" name="field_test_field[time]" id="field_test_field_time" value="%s" data-type=\'text_datetime_timestamp_timezone\'/><select class="cmb2_select select_timezone" name="field_test_field[timezone]" id="field_test_field_timezone" data-type=\'text_datetime_timestamp_timezone\'>%s</select><span class="cmb2-metabox-description">This is a description</span>', $date_val, $time_val, $zones ),
 			$this->capture_render( array( $this->get_field_type_object( 'text_datetime_timestamp_timezone' ), 'render' ) )
 		);
 
@@ -515,7 +515,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		$zones = wp_timezone_choice( $value_to_save );
 
 		$this->assertHTMLstringsAreEqual(
-			sprintf( '<select name="field_test_field" id="field_test_field">%s</select><span class="cmb2-metabox-description">This is a description</span>', $zones ),
+			sprintf( '<select class="cmb2_select select_timezone" name="field_test_field" id="field_test_field" data-type=\'select_timezone\'>%s</select><p class="cmb2-metabox-description">This is a description</p>', $zones ),
 			$this->capture_render( array( $this->get_field_type_object( 'select_timezone' ), 'render' ) )
 		);
 
@@ -524,7 +524,7 @@ class CMB2_Types_Test extends CMB2_Test {
 
 	public function test_colorpicker_field() {
 		$this->assertHTMLstringsAreEqual(
-			'<input type="text" class="cmb2-colorpicker cmb2-text-small" name="field_test_field" id="field_test_field" value="#"/><p class="cmb2-metabox-description">This is a description</p>',
+			'<input type="text" class="cmb2-colorpicker cmb2-text-small" name="field_test_field" id="field_test_field" value="#" data-type=\'colorpicker\'/><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( 'colorpicker' ), 'render' ) )
 		);
 	}
@@ -539,7 +539,7 @@ class CMB2_Types_Test extends CMB2_Test {
 	public function test_select_field() {
 		$field = $this->get_field_object( $this->options_test['fields'][0] );
 		$this->assertHTMLstringsAreEqual(
-			'<select class="cmb2_select" name="options_test_field" id="options_test_field"><option value="one" >One</option><option value="two" >Two</option><option value="true" >1</option><option value="false" ></option></select><p class="cmb2-metabox-description">This is a description</p>',
+			'<select class="cmb2_select" name="options_test_field" id="options_test_field" data-type=\'select\'><option value="one" >One</option><option value="two" >Two</option><option value="true" >1</option><option value="false" ></option></select><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( $field ), 'render' ) )
 		);
 	}
@@ -549,7 +549,7 @@ class CMB2_Types_Test extends CMB2_Test {
 
 		$field = $this->get_field_object( $this->options_test['fields'][0] );
 		$this->assertHTMLstringsAreEqual(
-			'<select class="cmb2_select" name="options_test_field" id="options_test_field"><option value="one" selected=\'selected\'>One</option><option value="two" >Two</option><option value="true" >1</option><option value="false" ></option></select><p class="cmb2-metabox-description">This is a description</p>',
+			'<select class="cmb2_select" name="options_test_field" id="options_test_field" data-type=\'select\'><option value="one" selected=\'selected\'>One</option><option value="two" >Two</option><option value="true" >1</option><option value="false" ></option></select><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( $field ), 'render' ) )
 		);
 
@@ -564,7 +564,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		$field = $this->get_field_object( $args );
 
 		$this->assertHTMLstringsAreEqual(
-			'<select class="cmb2_select" name="options_test_field" id="options_test_field"><option value="" >None</option><option value="number_2" >number_2</option><option value="test_category" selected=\'selected\'>test_category</option><option value="uncategorized" >Uncategorized</option></select><p class="cmb2-metabox-description">This is a description</p>',
+			'<select class="cmb2_select" name="options_test_field" id="options_test_field" data-type=\'taxonomy_select\'><option value="" >None</option><option value="number_2" >number_2</option><option value="test_category" selected=\'selected\'>test_category</option><option value="uncategorized" >Uncategorized</option></select><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( $field ), 'render' ) )
 		);
 	}
@@ -574,7 +574,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		$args['type'] = 'radio';
 		$field = $this->get_field_object( $args );
 		$this->assertHTMLstringsAreEqual(
-			'<ul class="cmb2-radio-list cmb2-list"><li><input type="radio" class="cmb2-option" name="options_test_field" id="options_test_field1" value="one"/><label for="options_test_field1">One</label></li><li><input type="radio" class="cmb2-option" name="options_test_field" id="options_test_field2" value="two"/><label for="options_test_field2">Two</label></li><li><input type="radio" class="cmb2-option" name="options_test_field" id="options_test_field3" value="true"/><label for="options_test_field3">1</label></li><li><input type="radio" class="cmb2-option" name="options_test_field" id="options_test_field4" value="false"/><label for="options_test_field4"></label></li></ul><p class="cmb2-metabox-description">This is a description</p>',
+			'<ul class="cmb2-radio-list cmb2-list"><li><input type="radio" class="cmb2-option" name="options_test_field" id="options_test_field1" value="one" data-type=\'radio\'/><label for="options_test_field1">One</label></li><li><input type="radio" class="cmb2-option" name="options_test_field" id="options_test_field2" value="two" data-type=\'radio\'/><label for="options_test_field2">Two</label></li><li><input type="radio" class="cmb2-option" name="options_test_field" id="options_test_field3" value="true" data-type=\'radio\'/><label for="options_test_field3">1</label></li><li><input type="radio" class="cmb2-option" name="options_test_field" id="options_test_field4" value="false" data-type=\'radio\'/><label for="options_test_field4"></label></li></ul><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( $field ), 'render' ) )
 		);
 	}
@@ -584,7 +584,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		$args['type'] = 'multicheck';
 		$field = $this->get_field_object( $args );
 		$this->assertHTMLstringsAreEqual(
-			'<ul class="cmb2-checkbox-list cmb2-list"><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field1" value="one"/><label for="options_test_field1">One</label></li><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field2" value="two"/><label for="options_test_field2">Two</label></li><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field3" value="true"/><label for="options_test_field3">1</label></li><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field4" value="false"/><label for="options_test_field4"></label></li></ul><p class="cmb2-metabox-description">This is a description</p>',
+			'<ul class="cmb2-checkbox-list cmb2-list"><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field1" value="one" data-type=\'multicheck\'/><label for="options_test_field1">One</label></li><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field2" value="two" data-type=\'multicheck\'/><label for="options_test_field2">Two</label></li><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field3" value="true" data-type=\'multicheck\'/><label for="options_test_field3">1</label></li><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field4" value="false" data-type=\'multicheck\'/><label for="options_test_field4"></label></li></ul><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( $field ), 'render' ) )
 		);
 	}
@@ -596,7 +596,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		$args['type'] = 'multicheck';
 		$field = $this->get_field_object( $args );
 		$this->assertHTMLstringsAreEqual(
-			'<ul class="cmb2-checkbox-list cmb2-list"><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field1" value="one" checked="checked"/><label for="options_test_field1">One</label></li><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field2" value="two"/><label for="options_test_field2">Two</label></li><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field3" value="true"/><label for="options_test_field3">1</label></li><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field4" value="false" checked="checked"/><label for="options_test_field4"></label></li></ul><p class="cmb2-metabox-description">This is a description</p>',
+			'<ul class="cmb2-checkbox-list cmb2-list"><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field1" value="one" data-type=\'multicheck\' checked="checked"/><label for="options_test_field1">One</label></li><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field2" value="two" data-type=\'multicheck\'/><label for="options_test_field2">Two</label></li><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field3" value="true" data-type=\'multicheck\'/><label for="options_test_field3">1</label></li><li><input type="checkbox" class="cmb2-option" name="options_test_field[]" id="options_test_field4" value="false" data-type=\'multicheck\' checked="checked"/><label for="options_test_field4"></label></li></ul><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( $field ), 'render' ) )
 		);
 
@@ -605,7 +605,7 @@ class CMB2_Types_Test extends CMB2_Test {
 
 	public function test_checkbox_field() {
 		$this->assertHTMLstringsAreEqual(
-			'<input type="checkbox" class="cmb2-option cmb2-list" name="field_test_field" id="field_test_field" value="on"/><label for="field_test_field"><span class="cmb2-metabox-description">This is a description</span></label>',
+			'<input type="checkbox" class="cmb2-option cmb2-list" name="field_test_field" id="field_test_field" value="on" data-type=\'checkbox\'/><label for="field_test_field"><span class="cmb2-metabox-description">This is a description</span></label>',
 			$this->capture_render( array( $this->get_field_type_object( 'checkbox' ), 'render' ) )
 		);
 	}
@@ -617,7 +617,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		$field = $this->get_field_object( $args );
 
 		$this->assertHTMLstringsAreEqual(
-			'<ul class="cmb2-radio-list cmb2-list"><li><input type="radio" class="cmb2-option" name="field_test_field" id="field_test_field1" value=""/><label for="field_test_field1">None</label></li><li><input type="radio" class="cmb2-option" name="field_test_field" id="field_test_field2" value="number_2"/><label for="field_test_field2">number_2</label></li><li><input type="radio" class="cmb2-option" name="field_test_field" id="field_test_field3" value="test_category" checked="checked"/><label for="field_test_field3">test_category</label></li><li><input type="radio" class="cmb2-option" name="field_test_field" id="field_test_field4" value="uncategorized"/><label for="field_test_field4">Uncategorized</label></li></ul><p class="cmb2-metabox-description">This is a description</p>',
+			'<ul class="cmb2-radio-list cmb2-list"><li><input type="radio" class="cmb2-option" name="field_test_field" id="field_test_field1" value="" data-type=\'taxonomy_radio\'/><label for="field_test_field1">None</label></li><li><input type="radio" class="cmb2-option" name="field_test_field" id="field_test_field2" value="number_2" data-type=\'taxonomy_radio\'/><label for="field_test_field2">number_2</label></li><li><input type="radio" class="cmb2-option" name="field_test_field" id="field_test_field3" value="test_category" data-type=\'taxonomy_radio\' checked="checked"/><label for="field_test_field3">test_category</label></li><li><input type="radio" class="cmb2-option" name="field_test_field" id="field_test_field4" value="uncategorized" data-type=\'taxonomy_radio\'/><label for="field_test_field4">Uncategorized</label></li></ul><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( array(
 				'type' => 'taxonomy_radio',
 				'taxonomy' => 'category',
@@ -627,7 +627,7 @@ class CMB2_Types_Test extends CMB2_Test {
 
 	public function test_taxonomy_multicheck_field() {
 		$this->assertHTMLstringsAreEqual(
-			'<ul class="cmb2-checkbox-list cmb2-list"><li><input type="checkbox" class="cmb2-option" name="field_test_field[]" id="field_test_field1" value="number_2"/><label for="field_test_field1">number_2</label></li><li><input type="checkbox" class="cmb2-option" name="field_test_field[]" id="field_test_field2" value="test_category" checked="checked"/><label for="field_test_field2">test_category</label></li><li><input type="checkbox" class="cmb2-option" name="field_test_field[]" id="field_test_field3" value="uncategorized"/><label for="field_test_field3">Uncategorized</label></li></ul><p class="cmb2-metabox-description">This is a description</p>',
+			'<ul class="cmb2-checkbox-list cmb2-list"><li><input type="checkbox" class="cmb2-option" name="field_test_field[]" id="field_test_field1" value="number_2" data-type=\'taxonomy_multicheck\'/><label for="field_test_field1">number_2</label></li><li><input type="checkbox" class="cmb2-option" name="field_test_field[]" id="field_test_field2" value="test_category" data-type=\'taxonomy_multicheck\' checked="checked"/><label for="field_test_field2">test_category</label></li><li><input type="checkbox" class="cmb2-option" name="field_test_field[]" id="field_test_field3" value="uncategorized" data-type=\'taxonomy_multicheck\'/><label for="field_test_field3">Uncategorized</label></li></ul><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $this->get_field_type_object( array(
 				'type' => 'taxonomy_multicheck',
 				'taxonomy' => 'category',
@@ -647,7 +647,7 @@ class CMB2_Types_Test extends CMB2_Test {
 			'taxonomy' => 'category',
 		) );
 		$this->assertHTMLstringsAreEqual(
-			'<ul class="cmb2-checkbox-list cmb2-list"><li><input type="checkbox" class="cmb2-option" name="field_test_field[]" id="field_test_field1" value="number_2"/><label for="field_test_field1">number_2</label></li><li><input type="checkbox" class="cmb2-option" name="field_test_field[]" id="field_test_field2" value="test_category" checked="checked"/><label for="field_test_field2">test_category</label></li><li><input type="checkbox" class="cmb2-option" name="field_test_field[]" id="field_test_field3" value="uncategorized" checked="checked"/><label for="field_test_field3">Uncategorized</label></li></ul><p class="cmb2-metabox-description">This is a description</p>',
+			'<ul class="cmb2-checkbox-list cmb2-list"><li><input type="checkbox" class="cmb2-option" name="field_test_field[]" id="field_test_field1" value="number_2" data-type=\'taxonomy_multicheck\'/><label for="field_test_field1">number_2</label></li><li><input type="checkbox" class="cmb2-option" name="field_test_field[]" id="field_test_field2" value="test_category" data-type=\'taxonomy_multicheck\' checked="checked"/><label for="field_test_field2">test_category</label></li><li><input type="checkbox" class="cmb2-option" name="field_test_field[]" id="field_test_field3" value="uncategorized" data-type=\'taxonomy_multicheck\' checked="checked"/><label for="field_test_field3">Uncategorized</label></li></ul><p class="cmb2-metabox-description">This is a description</p>',
 			$this->capture_render( array( $type, 'render' ) )
 		);
 
@@ -656,7 +656,7 @@ class CMB2_Types_Test extends CMB2_Test {
 
 	public function test_file_list_field() {
 		$this->assertHTMLstringsAreEqual(
-			'<input type="hidden" class="cmb2-upload-file cmb2-upload-list" name="field_test_field" id="field_test_field" value="" size="45" data-previewsize=\'[120,120]\'/><input type="button" class="cmb2-upload-button button cmb2-upload-list" name="" id="" value="'. __( 'Add or Upload File', 'cmb2' ) .'"/><p class="cmb2-metabox-description">This is a description</p><ul id="field_test_field-status" class="cmb2-media-status cmb-attach-list"></ul>',
+			'<input type="hidden" class="cmb2-upload-file cmb2-upload-list" name="field_test_field" id="field_test_field" value="" data-type=\'file_list\' size="45" data-previewsize=\'[120,120]\'/><input type="button" class="cmb2-upload-button button cmb2-upload-list" name="" id="" value="'. __( 'Add or Upload File', 'cmb2' ) .'" data-type=\'file_list\'/><p class="cmb2-metabox-description">This is a description</p><ul id="field_test_field-status" class="cmb2-media-status cmb-attach-list"></ul>',
 			$this->capture_render( array( $this->get_field_type_object( array( 'type' => 'file_list', 'preview_size' => array( 120, 120 ) ) ), 'render' ) )
 		);
 	}
@@ -675,7 +675,7 @@ class CMB2_Types_Test extends CMB2_Test {
 		) );
 
 		$this->assertHTMLstringsAreEqual(
-			sprintf( '<input type="hidden" class="cmb2-upload-file cmb2-upload-list" name="field_test_field" id="field_test_field" value="" size="45" data-previewsize=\'[50,50]\'/><input type="button" class="cmb2-upload-button button cmb2-upload-list" name="" id="" value="%7$s"/><p class="cmb2-metabox-description">This is a description</p><ul id="field_test_field-status" class="cmb2-media-status cmb-attach-list"><li>%6$s <strong>?attachment_id=%1$d</strong>&nbsp;&nbsp;&nbsp; (<a href="%3$s/?attachment_id=%1$d" target="_blank" rel="external">%4$s</a> / <a href="#" class="cmb2-remove-file-button">%5$s</a>)<input type="hidden" class="" name="field_test_field[%1$d]" id="filelist-%1$d" value="%3$s/?attachment_id=%1$d"/></li><li>%6$s <strong>?attachment_id=%2$d</strong>&nbsp;&nbsp;&nbsp; (<a href="%3$s/?attachment_id=%2$d" target="_blank" rel="external">%4$s</a> / <a href="#" class="cmb2-remove-file-button">%5$s</a>)<input type="hidden" class="" name="field_test_field[%2$d]" id="filelist-%2$d" value="%3$s/?attachment_id=%2$d"/></li></ul>',
+			sprintf( '<input type="hidden" class="cmb2-upload-file cmb2-upload-list" name="field_test_field" id="field_test_field" value="" data-type=\'file_list\' size="45" data-previewsize=\'[50,50]\'/><input type="button" class="cmb2-upload-button button cmb2-upload-list" name="" id="" value="%7$s" data-type=\'file_list\'/><p class="cmb2-metabox-description">This is a description</p><ul id="field_test_field-status" class="cmb2-media-status cmb-attach-list"><li>%6$s <strong>?attachment_id=%1$d</strong>&nbsp;&nbsp;&nbsp; (<a href="%3$s/?attachment_id=%1$d" target="_blank" rel="external">%4$s</a> / <a href="#" class="cmb2-remove-file-button">%5$s</a>)<input type="hidden" class="" name="field_test_field[%1$d]" id="filelist-%1$d" value="%3$s/?attachment_id=%1$d" data-type=\'file_list\'/></li><li>%6$s <strong>?attachment_id=%2$d</strong>&nbsp;&nbsp;&nbsp; (<a href="%3$s/?attachment_id=%2$d" target="_blank" rel="external">%4$s</a> / <a href="#" class="cmb2-remove-file-button">%5$s</a>)<input type="hidden" class="" name="field_test_field[%2$d]" id="filelist-%2$d" value="%3$s/?attachment_id=%2$d" data-type=\'file_list\'/></li></ul>',
 				$this->attachment_id,
 				$this->attachment_id2,
 				site_url(),
@@ -692,7 +692,7 @@ class CMB2_Types_Test extends CMB2_Test {
 
 	public function test_file_field() {
 		$this->assertHTMLstringsAreEqual(
-			'<input type="text" class="cmb2-upload-file regular-text" name="field_test_field" id="field_test_field" value="" size="45" data-previewsize=\'[199,199]\'/><input class="cmb2-upload-button button" type="button" value="'. __( 'Add or Upload File', 'cmb2' ) .'" /><p class="cmb2-metabox-description">This is a description</p><input type="hidden" class="cmb2-upload-file-id" name="field_test_field_id" id="field_test_field_id" value="0"/><div id="field_test_field_id-status" class="cmb2-media-status"></div>',
+			'<input type="text" class="cmb2-upload-file regular-text" name="field_test_field" id="field_test_field" value="" data-type=\'file\' size="45" data-previewsize=\'[199,199]\'/><input class="cmb2-upload-button button" type="button" value="'. __( 'Add or Upload File', 'cmb2' ) .'" /><p class="cmb2-metabox-description">This is a description</p><input type="hidden" class="cmb2-upload-file-id" name="field_test_field_id" id="field_test_field_id" value="0" data-type=\'file\'/><div id="field_test_field_id-status" class="cmb2-media-status"></div>',
 			$this->capture_render( array( $this->get_field_type_object( array( 'type' => 'file', 'preview_size' => array( 199, 199 ) ) ), 'render' ) )
 		);
 	}
@@ -701,7 +701,7 @@ class CMB2_Types_Test extends CMB2_Test {
  		update_post_meta( $this->post_id, $this->text_type_field['id'], get_permalink( $this->attachment_id ) );
  		update_post_meta( $this->post_id, $this->text_type_field['id'] .'_id', $this->attachment_id );
 		$this->assertHTMLstringsAreEqual(
-			sprintf( '<input type="text" class="cmb2-upload-file regular-text" name="field_test_field" id="field_test_field" value="%2$s/?attachment_id=%1$d" size="45" data-previewsize=\'[199,199]\'/><input class="cmb2-upload-button button" type="button" value="%6$s" /><p class="cmb2-metabox-description">This is a description</p><input type="hidden" class="cmb2-upload-file-id" name="field_test_field_id" id="field_test_field_id" value="%1$d"/><div id="field_test_field_id-status" class="cmb2-media-status">%5$s <strong>?attachment_id=%1$d</strong>&nbsp;&nbsp;&nbsp; (<a href="%2$s/?attachment_id=%1$d" target="_blank" rel="external">%3$s</a> / <a href="#" class="cmb2-remove-file-button" rel="field_test_field">%4$s</a>)</div>',
+			sprintf( '<input type="text" class="cmb2-upload-file regular-text" name="field_test_field" id="field_test_field" value="%2$s/?attachment_id=%1$d" data-type=\'file\' size="45" data-previewsize=\'[199,199]\'/><input class="cmb2-upload-button button" type="button" value="%6$s" /><p class="cmb2-metabox-description">This is a description</p><input type="hidden" class="cmb2-upload-file-id" name="field_test_field_id" id="field_test_field_id" value="%1$d" data-type=\'file\'/><div id="field_test_field_id-status" class="cmb2-media-status">%5$s <strong>?attachment_id=%1$d</strong>&nbsp;&nbsp;&nbsp; (<a href="%2$s/?attachment_id=%1$d" target="_blank" rel="external">%3$s</a> / <a href="#" class="cmb2-remove-file-button" rel="field_test_field">%4$s</a>)</div>',
 				$this->attachment_id,
 				site_url(),
 				__( 'Download','cmb2' ),
@@ -717,7 +717,7 @@ class CMB2_Types_Test extends CMB2_Test {
 
 	public function test_oembed_field() {
 		$this->assertHTMLstringsAreEqual(
-			sprintf( '<input type="text" class="cmb2-oembed regular-text" name="field_test_field" id="field_test_field" value="" data-objectid=\'%1$d\' data-objecttype=\'post\'/><p class="cmb2-metabox-description">This is a description</p><p class="cmb-spinner spinner" style="display:none;"></p><div id="field_test_field-status" class="cmb2-media-status ui-helper-clearfix embed_wrap"></div>', $this->post_id ),
+			sprintf( '<input type="text" class="cmb2-oembed regular-text" name="field_test_field" id="field_test_field" value="" data-type=\'oembed\' data-objectid=\'%1$d\' data-objecttype=\'post\'/><p class="cmb2-metabox-description">This is a description</p><p class="cmb-spinner spinner" style="display:none;"></p><div id="field_test_field-status" class="cmb2-media-status ui-helper-clearfix embed_wrap"></div>', $this->post_id ),
 			$this->capture_render( array( $this->get_field_type_object( 'oembed' ), 'render' ) )
 		);
 	}
@@ -731,7 +731,7 @@ class CMB2_Types_Test extends CMB2_Test {
  		update_post_meta( $this->post_id, $this->text_type_field['id'], $value );
 
 		$this->assertHTMLstringsAreEqual(
-			sprintf( '<input type="text" class="cmb2-oembed regular-text" name="field_test_field" id="field_test_field" value="%1$s" data-objectid=\'%2$d\' data-objecttype=\'post\'/><p class="cmb2-metabox-description">This is a description</p><p class="cmb-spinner spinner" style="display:none;"></p><div id="field_test_field-status" class="cmb2-media-status ui-helper-clearfix embed_wrap"><div class="embed-status"><iframe width="640" height="360" src="%3$s" frameborder="0" allowfullscreen></iframe><p class="cmb2-remove-wrapper"><a href="#" class="cmb2-remove-file-button" rel="field_test_field">' . __( 'Remove Embed', 'cmb2' ) . '</a></p></div></div>', $value, $this->post_id, $src ),
+			sprintf( '<input type="text" class="cmb2-oembed regular-text" name="field_test_field" id="field_test_field" value="%1$s" data-type=\'oembed\' data-objectid=\'%2$d\' data-objecttype=\'post\'/><p class="cmb2-metabox-description">This is a description</p><p class="cmb-spinner spinner" style="display:none;"></p><div id="field_test_field-status" class="cmb2-media-status ui-helper-clearfix embed_wrap"><div class="embed-status"><iframe width="640" height="360" src="%3$s" frameborder="0" allowfullscreen></iframe><p class="cmb2-remove-wrapper"><a href="#" class="cmb2-remove-file-button" rel="field_test_field">' . __( 'Remove Embed', 'cmb2' ) . '</a></p></div></div>', $value, $this->post_id, $src ),
 			$this->capture_render( array( $this->get_field_type_object( 'oembed' ), 'render' ) )
 		);
 		delete_post_meta( $this->post_id, $this->text_type_field['id'] );

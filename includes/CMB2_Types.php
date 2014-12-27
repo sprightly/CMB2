@@ -244,12 +244,13 @@ class CMB2_Types {
 	 */
 	public function list_input( $args = array(), $i ) {
 		$args = $this->parse_args( $args, 'list_input', array(
-			'type'  => 'radio',
-			'class' => 'cmb2-option',
-			'name'  => $this->_name(),
-			'id'    => $this->_id( $i ),
-			'value' => $this->field->escaped_value(),
-			'label' => '',
+			'type'      => 'radio',
+			'class'     => 'cmb2-option',
+			'name'      => $this->_name(),
+			'id'        => $this->_id( $i ),
+			'value'     => $this->field->escaped_value(),
+			'label'     => '',
+			'data-type' => $this->field->type(),
 		) );
 
 		return sprintf( "\t".'<li><input%s/> <label for="%s">%s</label></li>'."\n", $this->concat_attrs( $args, 'label' ), $args['id'], $args['label'] );
@@ -407,12 +408,13 @@ class CMB2_Types {
 	 */
 	public function input( $args = array() ) {
 		$args = $this->parse_args( $args, 'input', array(
-			'type'  => 'text',
-			'class' => 'regular-text',
-			'name'  => $this->_name(),
-			'id'    => $this->_id(),
-			'value' => $this->field->escaped_value(),
-			'desc'  => $this->_desc( true ),
+			'type'      => 'text',
+			'class'     => 'regular-text',
+			'name'      => $this->_name(),
+			'id'        => $this->_id(),
+			'value'     => $this->field->escaped_value(),
+			'desc'      => $this->_desc( true ),
+			'data-type' => $this->field->type(),
 		) );
 
 		return sprintf( '<input%s/>%s', $this->concat_attrs( $args, 'desc' ), $args['desc'] );
@@ -426,13 +428,14 @@ class CMB2_Types {
 	 */
 	public function textarea( $args = array() ) {
 		$args = $this->parse_args( $args, 'textarea', array(
-			'class' => 'cmb2_textarea',
-			'name'  => $this->_name(),
-			'id'    => $this->_id(),
-			'cols'  => 60,
-			'rows'  => 10,
-			'value' => $this->field->escaped_value( 'esc_textarea' ),
-			'desc'  => $this->_desc( true ),
+			'class'     => 'cmb2_textarea',
+			'name'      => $this->_name(),
+			'id'        => $this->_id(),
+			'cols'      => 60,
+			'rows'      => 10,
+			'value'     => $this->field->escaped_value( 'esc_textarea' ),
+			'desc'      => $this->_desc( true ),
+			'data-type' => $this->field->type(),
 		) );
 		return sprintf( '<textarea%s>%s</textarea>%s', $this->concat_attrs( $args, array( 'desc', 'value' ) ), $args['value'], $args['desc'] );
 	}
@@ -490,15 +493,23 @@ class CMB2_Types {
 	}
 
 	public function wysiwyg( $args = array() ) {
-		extract( $this->parse_args( $args, 'input', array(
-			'id'      => $this->_id(),
-			'value'   => $this->field->escaped_value( 'stripslashes' ),
-			'desc'    => $this->_desc( true ),
-			'options' => $this->field->options(),
-		) ) );
+		$args = $this->parse_args( $args, 'input', array(
+			'id'            => $this->_id(),
+			'value'         => $this->field->escaped_value( 'stripslashes' ),
+			'desc'          => $this->_desc( true ),
+			'options'       => $this->field->options(),
+			'data-type'     => $this->field->type(),
+		) );
 
-		wp_editor( $value, $id, $options );
-		echo $desc;
+		$args['options'] = wp_parse_args( $args['options'], array(
+			'textarea_name' => $this->_name(),
+		) );
+
+		// Hack our way into a data attribute
+		$args['options']['textarea_name'] .= '" data-type="'. $args['data-type'];
+
+		wp_editor( $args['value'], $args['id'], $args['options'] );
+		echo $args['desc'];
 	}
 
 	public function text_date_timestamp() {
@@ -554,9 +565,14 @@ class CMB2_Types {
 		}
 
 		$inputs = $this->text_datetime_timestamp( $meta_value );
-		$inputs .= '<select name="'. $this->_name( '[timezone]' ) .'" id="'. $this->_id( '_timezone' ) .'">';
-		$inputs .= wp_timezone_choice( $tzstring );
-		$inputs .= '</select>'. $this->_desc();
+
+		$inputs .= $this->select( array(
+			'class'   => 'cmb2_select select_timezone',
+			'name'    => $this->_name( '[timezone]' ),
+			'id'      => $this->_id( '_timezone' ),
+			'options' => wp_timezone_choice( $tzstring ),
+			'desc'    => $this->_desc(),
+		) );
 
 		return $inputs;
 	}
@@ -568,7 +584,10 @@ class CMB2_Types {
 
 		$meta_value = $this->field->escaped_value();
 
-		return '<select name="'. $this->_name() .'" id="'. $this->_id() .'">'. wp_timezone_choice( $meta_value ) .'</select>'. $this->_desc();
+		return $this->select( array(
+			'class' => 'cmb2_select select_timezone',
+			'options' => wp_timezone_choice( $meta_value ),
+		) );
 	}
 
 	public function colorpicker() {
@@ -585,10 +604,11 @@ class CMB2_Types {
 
 	public function title() {
 		extract( $this->parse_args( array(), 'title', array(
-			'tag'   => $this->field->object_type == 'post' ? 'h5' : 'h3',
-			'class' => 'cmb2-metabox-title',
-			'name'  => $this->field->args( 'name' ),
-			'desc'  => $this->_desc( true ),
+			'tag'       => $this->field->object_type == 'post' ? 'h5' : 'h3',
+			'class'     => 'cmb2-metabox-title',
+			'name'      => $this->field->args( 'name' ),
+			'desc'      => $this->_desc( true ),
+			'data-type' => $this->field->type(),
 		) ) );
 
 		return sprintf( '<%1$s class="%2$s">%3$s</%1$s>%4$s', $tag, $class, $name, $desc );
@@ -596,11 +616,12 @@ class CMB2_Types {
 
 	public function select( $args = array() ) {
 		$args = $this->parse_args( $args, 'select', array(
-			'class'   => 'cmb2_select',
-			'name'    => $this->_name(),
-			'id'      => $this->_id(),
-			'desc'    => $this->_desc( true ),
-			'options' => $this->concat_items(),
+			'class'     => 'cmb2_select',
+			'name'      => $this->_name(),
+			'id'        => $this->_id(),
+			'desc'      => $this->_desc( true ),
+			'options'   => $this->concat_items(),
+			'data-type' => $this->field->type(),
 		) );
 
 		$attrs = $this->concat_attrs( $args, array( 'desc', 'options' ) );

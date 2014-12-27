@@ -171,7 +171,7 @@ class CMB2_Core_Test extends CMB2_Test {
 						</div>
 						<div class="cmb-td">
 							testing before
-							<input type="text" class="regular-text" name="test_test" id="test_test" value=""/>
+							<input type="text" class="regular-text" name="test_test" id="test_test" value="" data-type=\'text\'/>
 							<p class="cmb2-metabox-description">Description</p>
 							function test_after Description test_test
 						</div>
