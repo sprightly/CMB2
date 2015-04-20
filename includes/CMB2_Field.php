@@ -435,6 +435,11 @@ class CMB2_Field {
 			? $data_to_save[ $this->id( true ) ]
 			: null;
 
+		//Return if value not exist in current submission
+		if ( is_null( $meta_value ) ) {
+			return;
+		}
+
 		$this->save_field( $meta_value );
 	}
 
